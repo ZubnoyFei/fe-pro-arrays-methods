@@ -2,124 +2,71 @@ import {goods} from './goods.js';
 
 /**
  * @param {string} brand
- * @param goods
  * @returns {*}
  */
-const brandFilter = (brand, goods) => {
-    if (goods.brand === 'Apple') {
-        return goods
-    } else if (goods.brand === 'Samsung') {
-        return goods
-    } else if (goods.brand === 'Xiaomi') {
-        return goods
-    } else if (goods.brand === 'Sony') {
-        return goods
-    } else if (goods.brand === 'Motorola') {
-        return goods
-    }
+const brandFilter = (brand) => {
+return goods.filter((item) => {
+    return item.brand === brand
+})
 };
 
 /**
  * @param {string} color
- * @param goods
  * @returns {*}
  */
-const colorFilter = (color, goods) => {
-    if (goods.color === 'colors.white') {
-        return goods
-    } else if (goods.color === 'colors.black') {
-        return goods
-    } else if (goods.color === 'colors.purple') {
-        return goods
-    } else if (goods.color === 'colors.grey') {
-        return goods
-    } else if (goods.color === 'colors.blue') {
-        return goods
-    }
+const colorFilter = (color) => {
+    return goods.filter((item) => {
+        return item.color === color
+    })
 };
 
 /**
  * @param {string} model
- * @param goods
  * @returns {*}
  */
-const modelFilter = (model, goods) => {
-    if (goods.model === 'Apple') {
-        return goods
-    } else if (goods.model === 'Samsung') {
-        return goods
-    } else if (goods.model === 'Xiaomi') {
-        return goods
-    } else if (goods.model === 'Sony') {
-        return goods
-    } else if (goods.model === 'Motorola') {
-        return goods
-    }
+const modelFilter = (model) => {
+    return goods.filter((item) => {
+        return item.model === model
+    })
 };
 
 /**
  * @param {number} memory
- * @param goods
  * @returns {*}
  */
-const memoryFilter = (memory, goods) => {
-    if (+goods.memory < 65) {
-        return goods
-    } else if (+goods.memory >= 65 || +goods.memory <= 128) {
-        return goods
-    } else if (+goods.memory >= 128 || +goods.memory <= 512) {
-        return goods
-    } else if (+goods.memory >= 512) {
-        return goods
-    }
+const memoryFilter = (memory) => {
+    return goods.filter((item) => {
+        return item.memory === memory
+    })
+};
+/**
+ * @param {number} price
+ * @returns {*}
+ */
+const priceFilter = (price) => {
+    return goods.filter((item) => {
+        return item.price === price
+    })
 };
 
 /**
- * @param {number} price
- * @param goods
- * @returns {*}
- */
-const priceFilter = (price, goods) => {
-    if (+goods.price <= 10000) {
-        return goods
-    } else if (+goods.price >= 10000 || +goods.price<=20000) {
-        return goods
-    } else if(+goods.price>= 20001 || +goods.price<= 36000){
-      return goods
-} else if(+goods.price>=36001 || +goods.price<= 49000) {
-      return goods
-    }
-}
-;
-
-/**
  * @param {string} country
- * @param goods
  * @returns {*}
  */
-const countryFilter = (country,goods) => {
-  if(country==='USA') {
-    return goods
-  } else if(country==='Korea') {
-    return goods
-  } else if(country==='China') {
-    return goods
-  } else if(country ==='Japan') {
-    return goods
-  }
+const countryFilter = (country) => {
+    return goods.filter((item)=> {
+        return item.country === country
+    })
 };
 
 /**
  * @param {string} os
- * @param goods
  * @returns {*}
  */
-const osFilter = (os,goods) => {
-  if(os==='ios') {
-    return goods
-  } else if (os==='Android') {
-    return goods
-  }
+const osFilter = (os) => {
+    return goods.filter((item)=> {
+        return item.os === os
+    })
 };
 
 /**
@@ -127,20 +74,47 @@ const osFilter = (os,goods) => {
  * @param {number} to
  */
 const rangeFilter = (from, to) => {
+    let result = goods.filter(function (item) {
+        return item.price <= to && item.price >= from;
+    });
 
+    return result;
 };
 
 const minPriceReducer = () => {
+    let result = goods.reduce(function (previous,current){
+        if (previous.price< current.price){
+            return previous;
+        } else {
+            return current;
+        }
+    });
+
+    return result.price;
 };
 
-const maxPriceReducer = () => {
+const maxPriceReducer = (items) => {
+    let result = goods.reduce(function (previous,current){
+        if (previous.price>current.price){
+            return previous;
+        } else {
+            return current;
+        }
+    });
+
+    return result.price;
+
 };
 
 const toMaxSorter = () => {
-};
-const toMinSorter = () => {
-};
+    let result = goods.sort(function (first, second) {
+        if (first.price > second.price) return -1;
+        if (first.price < second.price) return 1;
+        return 0;
+    });
 
+    return result;
+};
 export const filters = {
     brandFilter,
     countryFilter,
@@ -150,6 +124,16 @@ export const filters = {
     memoryFilter,
     modelFilter,
     rangeFilter,
+};
+
+const toMinSorter = () => {
+    let result = goods.sort(function (a, b) {
+        if (a.price > b.price) return 1;
+        if (a.price < b.price) return -1;
+        return 0;
+    });
+
+    return result;
 };
 
 export const reducers = {
