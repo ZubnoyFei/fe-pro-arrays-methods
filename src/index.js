@@ -1,77 +1,147 @@
-import { goods } from './goods.js';
+import {goods} from './goods.js';
 
 /**
  * @param {string} brand
  * @returns {*}
  */
-const brandFilter = (brand) => {};
+const brandFilter = (brand) => {
+return goods.filter((item) => {
+    return item.brand === brand
+})
+};
 
 /**
  * @param {string} color
  * @returns {*}
  */
-const colorFilter = (color) => {};
+const colorFilter = (color) => {
+    return goods.filter((item) => {
+        return item.color === color
+    })
+};
 
 /**
  * @param {string} model
  * @returns {*}
  */
-const modelFilter = (model) => {};
+const modelFilter = (model) => {
+    return goods.filter((item) => {
+        return item.model === model
+    })
+};
 
 /**
  * @param {number} memory
  * @returns {*}
  */
-const memoryFilter = (memory) => {};
-
+const memoryFilter = (memory) => {
+    return goods.filter((item) => {
+        return item.memory === memory
+    })
+};
 /**
  * @param {number} price
  * @returns {*}
  */
-const priceFilter = (price) => {};
+const priceFilter = (price) => {
+    return goods.filter((item) => {
+        return item.price === price
+    })
+};
 
 /**
  * @param {string} country
  * @returns {*}
  */
-const countryFilter = (country) => {};
+const countryFilter = (country) => {
+    return goods.filter((item)=> {
+        return item.country === country
+    })
+};
 
 /**
  * @param {string} os
  * @returns {*}
  */
-const osFilter = (os) => {};
+const osFilter = (os) => {
+    return goods.filter((item)=> {
+        return item.os === os
+    })
+};
 
 /**
  * @param {number} from
  * @param {number} to
  */
-const rangeFilter = (from, to) => {};
+const rangeFilter = (from, to) => {
+    let result = goods.filter(function (item) {
+        return item.price <= to && item.price >= from;
+    });
 
-const minPriceReducer = () => {};
+    return result;
+};
 
-const maxPriceReducer = () => {};
+const minPriceReducer = () => {
+    let result = goods.reduce(function (previous,current){
+        if (previous.price< current.price){
+            return previous;
+        } else {
+            return current;
+        }
+    });
 
-const toMaxSorter = () => {};
-const toMinSorter = () => {};
+    return result.price;
+};
 
+const maxPriceReducer = (items) => {
+    let result = goods.reduce(function (previous,current){
+        if (previous.price>current.price){
+            return previous;
+        } else {
+            return current;
+        }
+    });
+
+    return result.price;
+
+};
+
+const toMaxSorter = () => {
+    let result = goods.sort(function (first, second) {
+        if (first.price > second.price) return -1;
+        if (first.price < second.price) return 1;
+        return 0;
+    });
+
+    return result;
+};
 export const filters = {
-  brandFilter,
-  countryFilter,
-  priceFilter,
-  osFilter,
-  colorFilter,
-  memoryFilter,
-  modelFilter,
-  rangeFilter,
+    brandFilter,
+    countryFilter,
+    priceFilter,
+    osFilter,
+    colorFilter,
+    memoryFilter,
+    modelFilter,
+    rangeFilter,
+};
+
+const toMinSorter = () => {
+    let result = goods.sort(function (a, b) {
+        if (a.price > b.price) return 1;
+        if (a.price < b.price) return -1;
+        return 0;
+    });
+
+    return result;
 };
 
 export const reducers = {
-  minPriceReducer,
-  maxPriceReducer,
+    minPriceReducer,
+    maxPriceReducer,
 };
 
 export const sorters = {
-  toMaxSorter,
-  toMinSorter,
+    toMaxSorter,
+    toMinSorter,
 };
