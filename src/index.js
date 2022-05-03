@@ -74,11 +74,7 @@ const osFilter = (os) => {
  * @param {number} to
  */
 const rangeFilter = (from, to) => {
-    let result = goods.filter(function (item) {
-        return item.price <= to && item.price >= from;
-    });
-
-    return result;
+  return goods.filter((item) => item.price >= from && item.price <= to)
 };
 
 const minPriceReducer = () => {
