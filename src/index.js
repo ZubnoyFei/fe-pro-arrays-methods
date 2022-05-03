@@ -123,9 +123,9 @@ export const filters = {
 };
 
 const toMinSorter = () => {
-    let result = goods.sort(function (a, b) {
-        if (a.price > b.price) return 1;
-        if (a.price < b.price) return -1;
+    let result = goods.sort(function (first, second) {
+        if (first.price > second.price) return 1;
+        if (first.price < second.price) return -1;
         return 0;
     });
 
